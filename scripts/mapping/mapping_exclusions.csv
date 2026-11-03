@@ -1,0 +1,3 @@
+EmbryoKey,Reason
+180405SP_E4,"Raw CSV tracked from '180405SP_E4_st_13 - Stitched_again.nd2' but boundary file built from 'Stitched_Raw.nd2': cell IDs do not correspond (31% of boundary IDs on raw last frame). Exclude until original merged CSV is traced."
+200114SP_E1,"Raw CSV tracked from '200114SP_E1_st_13001 - Stitched_Raw.nd2' but boundary file built from '200114SP_E1_st_13 - Stitched.nd2': cell IDs do not correspond (34% of boundary IDs on raw last frame). Exclude until original merged CSV is traced."
