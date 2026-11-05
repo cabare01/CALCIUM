@@ -1,0 +1,6 @@
+# pip-installed packages for the wavelet-analysis conda env.
+# Hash-pinned to the exact PyPI wheel (verified against PyPI on 2026-11-05).
+# Note: this wheel's pywt/version.py reports 1.8.0 (upstream labelling bug);
+# the distribution is 1.9.0. Use importlib.metadata.version("PyWavelets").
+PyWavelets==1.9.0 \
+    --hash=sha256:573b650805d2f3c981a0e5ae95191c781a722022c37a0f6eba3fa7eae8e0ee17

@@ -50,6 +50,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import embryo_ref  # noqa: E402
 
 
+def _dist_version(dist: str) -> str:
+    """Installed distribution version. PyWavelets 1.9.0's wheel reports
+    pywt.__version__ == '1.8.0' (upstream labelling bug), so don't use that."""
+    import importlib.metadata
+    return importlib.metadata.version(dist)
+
+
 def _load_stage(filename: str, module_name: str):
     path = Path(__file__).with_name(filename)
     spec = importlib.util.spec_from_file_location(module_name, path)
@@ -118,7 +125,7 @@ def main() -> None:
     make_plots = os.environ.get("CALCIUM_MAKE_TRACE_PLOTS", "true").lower() in {"1", "true", "yes"}
     output.mkdir(parents=True)
 
-    import pywt
+    import pywt  # noqa: F401  fail early if PyWavelets is missing
     axis = spectral.frequency_axis()
     coi = spectral.coi_factor()
     run_id = datetime.now().strftime("%Y-%m-%d_%H%M%S")
@@ -148,7 +155,7 @@ def main() -> None:
         "make_trace_plots": make_plots,
         "git_commit": _git_commit(),
         "versions": {"python": platform.python_version(), "numpy": np.__version__,
-                     "pandas": pd.__version__, "pywt": pywt.__version__},
+                     "pandas": pd.__version__, "pywt": _dist_version("PyWavelets")},
         "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
     }
     (output / "run_manifest.json").write_text(json.dumps(manifest, indent=2))

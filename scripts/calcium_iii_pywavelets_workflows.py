@@ -193,7 +193,8 @@ def run_spectral(root: Path) -> None:
     axis_hz = np.linspace(0.02, 0.20, 80)
     save_plots = os.environ.get("CALCIUM_MAKE_TRACE_PLOTS", "false").lower() == "true"
     import pywt  # fail before processing when dependency is unavailable
-    print(f"PyWavelets {pywt.__version__}; wavelet={os.environ.get('CALCIUM_PYWT_WAVELET','cmor1.5-1.0')}")
+    import importlib.metadata  # pywt.__version__ is mislabelled ('1.8.0') in the 1.9.0 wheel
+    print(f"PyWavelets {importlib.metadata.version('PyWavelets')}; wavelet={os.environ.get('CALCIUM_PYWT_WAVELET','cmor1.5-1.0')}")
     for file_index, path in enumerate(files, 1):
         embryo = embryo_names[file_index - 1]
         print(f"Processing {file_index}/{len(files)}: {path.name}", flush=True)
