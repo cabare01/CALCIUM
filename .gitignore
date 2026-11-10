@@ -1,6 +1,7 @@
-data/
-__pycache__/
+data
+scripts/__pycache__
 *.pyc
 
-summaries/
+summaries
 
+logs
