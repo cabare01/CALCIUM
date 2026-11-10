@@ -19,7 +19,7 @@ conda activate wavelet-analysis
 
 SCRIPT=/sciclone/home/cabare01/CALCIUM/scripts/mapping/spatial_spectral_mapping.py
 python "${SCRIPT}" \
-  --input /sciclone/home/cabare01/CALCIUM/data/master_tables/group_tables_v3/stage_14_devitellinated_CW.csv \
+  --input /sciclone/home/cabare01/CALCIUM/data/group_tables/stage_14_devitellinated_CW.csv \
   --group S14_devitellinated \
   --expected-embryos 41 \
   --boundary-root /sciclone/home/cabare01/data10/boundary_info/Boundaries \

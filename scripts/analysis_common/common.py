@@ -6,7 +6,7 @@ ANALYSIS_ROOT/<step name>/ and never modifies spectral, table or mapping outputs
 
 Environment overrides (all optional):
   CALCIUM_SPECTRAL_ROOT  default data10/HPC_spectral_v3
-  CALCIUM_TABLE_DIR      default CALCIUM/data/master_tables/group_tables_v3
+  CALCIUM_TABLE_DIR      default CALCIUM/data/group_tables
   CALCIUM_MAPPING_ROOT   default scr10/CALCIUM/data/mapping_v3
   CALCIUM_ANALYSIS_ROOT  default scr10/CALCIUM/data/analysis_v3
 """
@@ -28,7 +28,7 @@ sys.path.insert(0, str(SCRIPTS))
 import embryo_ref  # noqa: E402
 
 SPECTRAL_ROOT = Path(os.environ.get("CALCIUM_SPECTRAL_ROOT", HOME / "data10/HPC_spectral_v3"))
-TABLE_DIR = Path(os.environ.get("CALCIUM_TABLE_DIR", REPO / "data/master_tables/group_tables_v3"))
+TABLE_DIR = Path(os.environ.get("CALCIUM_TABLE_DIR", REPO / "data/group_tables"))
 MAPPING_ROOT = Path(os.environ.get("CALCIUM_MAPPING_ROOT", HOME / "scr10/CALCIUM/data/mapping_v3"))
 ANALYSIS_ROOT = Path(os.environ.get("CALCIUM_ANALYSIS_ROOT", HOME / "scr10/CALCIUM/data/analysis_v3"))
 BOUNDARY_ROOT = HOME / "data10/boundary_info/Boundaries"

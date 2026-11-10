@@ -6,10 +6,13 @@ Input files are never modified.  Run non-interactively on the HPC with:
 
     python3 create_hpc_group_master_tables.py
 
-v2: reads the v2 spectral outputs (extra QC columns) by default. Override paths with
-CALCIUM_SPECTRAL_ROOT and CALCIUM_TABLE_DIR, e.g. to rebuild v1 tables:
-    CALCIUM_SPECTRAL_ROOT=/sciclone/home/cabare01/data10/HPC_spectral \
-    CALCIUM_TABLE_DIR=/tmp/v1_tables CALCIUM_TABLE_VERSION=v1 python3 create_hpc_group_master_tables.py
+Reads the v3 spectral outputs (data10/HPC_spectral_v3) by default and writes
+data/group_tables. CALCIUM_TABLE_VERSION ("v2", the default) names the column
+layout with the extra QC columns, which v2 and v3 runs share. Override paths
+with CALCIUM_SPECTRAL_ROOT and CALCIUM_TABLE_DIR, e.g. to rebuild v2 tables:
+    CALCIUM_SPECTRAL_ROOT=/sciclone/home/cabare01/data10/HPC_spectral_v2 \
+    CALCIUM_TABLE_DIR=/tmp/v2_tables python3 create_hpc_group_master_tables.py
+(The v1 run, data10/HPC_spectral, was deleted on 2026-11-05.)
 """
 
 import csv
@@ -26,7 +29,7 @@ import embryo_ref  # noqa: E402
 INPUT_ROOT = Path(os.environ.get("CALCIUM_SPECTRAL_ROOT",
                                  "/sciclone/home/cabare01/data10/HPC_spectral_v3"))
 OUTPUT_DIR = Path(os.environ.get("CALCIUM_TABLE_DIR",
-                                 "/sciclone/home/cabare01/CALCIUM/data/master_tables/group_tables_v3"))
+                                 "/sciclone/home/cabare01/CALCIUM/data/group_tables"))
 TABLE_VERSION = os.environ.get("CALCIUM_TABLE_VERSION", "v2")
 
 GROUPS = {

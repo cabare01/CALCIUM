@@ -24,6 +24,12 @@ For every kept cell of every embryo in --group:
        DomPeakAbove95 = observed power at DominantFreqHz exceeds the
                     pointwise 95th surrogate percentile.
        MaxRatioFreqHz = frequency where observed/red-noise ratio is largest.
+       P_maxT     = Westfall-Young max-T: log power z-scored per frequency
+                    against the surrogates, max over frequencies, calibrated
+                    on the surrogates' max. Weights frequencies ~equally
+                    (P_global's max-ratio is dominated by the noisy
+                    low-frequency edge). MaxT / MaxTFreqHz = the statistic
+                    and where it peaks.
   Self-check: the observed spectrum recomputed here must equal the saved
   SpectralLibrary.npz power for the first cells; otherwise the run stops.
 
@@ -174,6 +180,19 @@ def process_embryo(job: dict) -> dict:
         ratio = np.maximum(p_obs, 0) / mean_s
         r_obs = float(np.nanmax(ratio))
         r_sur = np.nanmax(sur / mean_s, axis=1)
+        # Max-T (Westfall-Young): log power standardised per frequency by the
+        # surrogates' mean/SD, max over frequencies, calibrated on the
+        # surrogates' max. Unlike the max-ratio statistic (P_global), every
+        # frequency gets ~equal weight: the ratio's null spread is ~4-5x wider
+        # at 0.005 Hz than at 0.08 Hz. (Rank-based min-P was rejected: its
+        # discreteness puts the p floor near 0.02-0.05 even with 1000 surrogates.)
+        tiny = np.finfo(float).tiny
+        log_sur = np.log(np.maximum(sur, tiny))
+        mu, sd = log_sur.mean(axis=0), log_sur.std(axis=0, ddof=1)
+        sd = np.where(sd > 0, sd, np.inf)
+        t_obs = (np.log(np.maximum(p_obs, tiny)) - mu) / sd
+        t_sur_max = ((log_sur - mu) / sd).max(axis=1)
+        t_max = float(np.max(t_obs))
         dom = int(np.nanargmax(p_obs))
         rows.append({
             "Group": group, "EmbryoID": embryo, "CellID": cell_id,
@@ -185,6 +204,8 @@ def process_embryo(job: dict) -> dict:
             "MaxRatio": r_obs, "MaxRatioFreqHz": float(axis[int(np.nanargmax(ratio))]),
             "FracFreqAbove95": float(np.mean(p_obs > p95)),
             "P_global": float((1 + np.sum(r_sur >= r_obs)) / (job["n_surr"] + 1)),
+            "MaxT": t_max, "MaxTFreqHz": float(axis[int(np.argmax(t_obs))]),
+            "P_maxT": float((1 + np.sum(t_sur_max >= t_max)) / (job["n_surr"] + 1)),
         })
         s_mean.append(mean_s)
         s_95.append(p95)
