@@ -1,0 +1,61 @@
+# Audit of /sciclone/home/cabare01/data10/HPC_spectral_v3
+
+Mapping exclusions (mapping_exclusions.csv): ['180405SP_E4', '200114SP_E1']
+
+Frequency axis: [{'fmin': 0.005, 'fmax': 0.08, 'nfreq': 80}]
+Frame interval range: 2.51-4.52 s; max (f_max x wavelet spread)/Nyquist = 0.99 (must be < 1)
+
+## Issues (0)
+  none
+
+## Per group (mapping-excluded embryos left out)
+                         embryos   kept  skipped  mappable  mappable_kept  mappable_skipped  mappable_absent  edge_low_median  edge_high_median  domf_median  mappable_kept_pct
+group                                                                                                                                                                          
+stage_13                      44  75523    67766     53498          49566              3721              211            0.062             0.509        0.079             92.650
+stage_13_devitellinated       46  68413    59564     49233          46409              2824                0            0.247             0.252        0.013             94.264
+stage_14                      46  83052    76372     56923          53243              3680                0            0.049             0.502        0.078             93.535
+stage_14_devitellinated       41  69911    71290     45792          42300              3492                0            0.248             0.246        0.016             92.374
+
+Total template-mappable cells kept: 191,518 of 205,446 (93.2%); manuscript n = 201,409 (179 embryos)
+
+## Embryos with >50% of dominant frequencies in the lowest 3 bins
+                  group         key  edge_low  mappable_kept  used_min_median
+stage_13_devitellinated 190716SP_E1     0.597            905           60.174
+stage_13_devitellinated 190717SP_E1     0.558           1263           59.923
+stage_13_devitellinated 190717SP_E3     0.580            763           60.073
+stage_13_devitellinated 201001SP_E6     0.595           1019           60.086
+stage_13_devitellinated 201003SP_E1     0.689            539           46.882
+stage_13_devitellinated 201003SP_E2     0.517           1031           51.323
+stage_13_devitellinated 201003SP_E4     0.561            621           38.879
+stage_14_devitellinated 190619SP_E2     0.509           1120           56.202
+stage_14_devitellinated 201003SP_E5     0.563            856           39.519
+
+## Lowest template-mappable retention (bottom 10 embryos)
+                  group         key  mappable  mappable_kept  pct
+               stage_13 200217SP_E3       953            692 72.6
+               stage_13 180413SP_E3       500            388 77.6
+stage_14_devitellinated 190401SP_E3      1156            898 77.7
+               stage_13 180328SP_E7      1888           1494 79.1
+               stage_14 180802SP_E2       769            641 83.4
+stage_13_devitellinated 201003SP_E1       641            539 84.1
+               stage_13 180125SP_E3      1113            936 84.1
+               stage_14 190918SP_E6       834            705 84.5
+stage_14_devitellinated 190724SP_E6       963            816 84.7
+               stage_14 180209SP_E5      1321           1120 84.8
+
+## Skip reasons, all cells (per group)
+group                                                               stage_13  stage_13_devitellinated  stage_14  stage_14_devitellinated
+skip: No segment longer than N s after splitting                     48973.0                  41677.0   54238.0                  50203.0
+skip: Only N s of cone-of-influence-valid data at N Hz (< N s = N    10587.0                   8415.0    9962.0                   9380.0
+skip: Fewer than two complete observations                            9669.0                   9047.0   11471.0                  11146.0
+skip: Only N observed frames in usable segments (< N)                  465.0                    425.0     701.0                    561.0
+
+## Compared with /sciclone/home/cabare01/data10/HPC_spectral_v2
+                          kept  kept_prev  mappable_kept  mappable_kept_prev  mappable_change_pct
+group                                                                                            
+stage_13                 75523      90566          49566               52040                 -4.8
+stage_13_devitellinated  68413      80875          46409               48194                 -3.7
+stage_14                 83052      97634          53243               55490                 -4.0
+stage_14_devitellinated  69911      83710          42300               44516                 -5.0
+
+Per-embryo table: /sciclone/home/cabare01/CALCIUM/logs/audit_v3_per_embryo.csv
